@@ -19,13 +19,13 @@ export class Point implements Movable {
         this.y += y;
     }
 
-    rotate(angle: number, mp: Point): void {
+    rotate(angle: number, p: Point): void {
         const radians = (angle * Math.PI) / 180;
         const cosinus = Math.cos(radians);
         const sinus = Math.sin(radians);
 
-        const xrotated = mp.x + (this.x - mp.x) * cosinus - (this.y - mp.y) * sinus;
-        const yrotated = mp.y + (this.x - mp.x) * sinus + (this.y - mp.y) * cosinus;
+        const xrotated = p.x + (this.x - p.x) * cosinus - (this.y - p.y) * sinus;
+        const yrotated = p.y + (this.x - p.x) * sinus + (this.y - p.y) * cosinus;
 
         this.x = xrotated;
         this.y = yrotated;
@@ -67,7 +67,24 @@ class Rectangle implements Movable {
     }
 
     public scale(factor: number) {
-        
+        if (factor <= 0) {
+            throw new Error("Współczynnik skalowania musi być większy od 0!");
+        }
+    
+        this.a.x = this.midPoint.x + (this.a.x - this.midPoint.x) * factor;
+        this.a.y = this.midPoint.y + (this.a.y - this.midPoint.y) * factor;
+    
+        this.b.x = this.midPoint.x + (this.b.x - this.midPoint.x) * factor;
+        this.b.y = this.midPoint.y + (this.b.y - this.midPoint.y) * factor;
+    
+        this.c.x = this.midPoint.x + (this.c.x - this.midPoint.x) * factor;
+        this.c.y = this.midPoint.y + (this.c.y - this.midPoint.y) * factor;
+    
+        this.d.x = this.midPoint.x + (this.d.x - this.midPoint.x) * factor;
+        this.d.y = this.midPoint.y + (this.d.y - this.midPoint.y) * factor;
+    
+        this.width *= factor;
+        this.height *= factor;
     }
 
     public getArea(): number {
@@ -104,8 +121,16 @@ console.log(rect);
 console.log(area);
 console.log(perimeter);
 
+rect.scale(2);
+
+area = rect.getArea();
+perimeter = rect.getPerimeter();
+console.log(rect);
+console.log(area);
+console.log(perimeter);
+
 rect.rotate(90);
-console.log(rect)
+console.log(rect);
 
 rect.move(-2, 1);
 console.log(rect);

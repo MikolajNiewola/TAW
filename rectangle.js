@@ -28,12 +28,12 @@ var Point = /** @class */ (function () {
         this.x += x;
         this.y += y;
     };
-    Point.prototype.rotate = function (angle, mp) {
+    Point.prototype.rotate = function (angle, p) {
         var radians = (angle * Math.PI) / 180;
         var cosinus = Math.cos(radians);
         var sinus = Math.sin(radians);
-        var xrotated = mp.x + (this.x - mp.x) * cosinus - (this.y - mp.y) * sinus;
-        var yrotated = mp.y + (this.x - mp.x) * sinus + (this.y - mp.y) * cosinus;
+        var xrotated = p.x + (this.x - p.x) * cosinus - (this.y - p.y) * sinus;
+        var yrotated = p.y + (this.x - p.x) * sinus + (this.y - p.y) * cosinus;
         this.x = xrotated;
         this.y = yrotated;
     };
@@ -63,6 +63,21 @@ var Rectangle = /** @class */ (function () {
         this.c.rotate(angle, this.midPoint);
         this.d.rotate(angle, this.midPoint);
     };
+    Rectangle.prototype.scale = function (factor) {
+        if (factor <= 0) {
+            throw new Error("Współczynnik skalowania musi być większy od 0!");
+        }
+        this.a.x = this.midPoint.x + (this.a.x - this.midPoint.x) * factor;
+        this.a.y = this.midPoint.y + (this.a.y - this.midPoint.y) * factor;
+        this.b.x = this.midPoint.x + (this.b.x - this.midPoint.x) * factor;
+        this.b.y = this.midPoint.y + (this.b.y - this.midPoint.y) * factor;
+        this.c.x = this.midPoint.x + (this.c.x - this.midPoint.x) * factor;
+        this.c.y = this.midPoint.y + (this.c.y - this.midPoint.y) * factor;
+        this.d.x = this.midPoint.x + (this.d.x - this.midPoint.x) * factor;
+        this.d.y = this.midPoint.y + (this.d.y - this.midPoint.y) * factor;
+        this.width *= factor;
+        this.height *= factor;
+    };
     Rectangle.prototype.getArea = function () {
         return this.width * this.height;
     };
@@ -90,6 +105,12 @@ var d = new Point(-1, -1);
 var rect = new Rectangle(a, b, c, d);
 var area = rect.getArea();
 var perimeter = rect.getPerimeter();
+console.log(rect);
+console.log(area);
+console.log(perimeter);
+rect.scale(2);
+area = rect.getArea();
+perimeter = rect.getPerimeter();
 console.log(rect);
 console.log(area);
 console.log(perimeter);
