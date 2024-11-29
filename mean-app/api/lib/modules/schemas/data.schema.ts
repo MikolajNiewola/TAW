@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IData } from "modules/models/data.model";
+import { IData } from "../models/data.model";
 
 export const DataSchema: Schema = new Schema({
     title: { type: String, required: true },

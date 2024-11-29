@@ -3,16 +3,13 @@ import { Request, Response, NextFunction, Router } from 'express';
 import { checkPostCount } from '../middlewares/checkPostCount.middleware';
 import DataService from '../modules/services/data.service';
 
-let testArr = [4,5,6,3,5,3,7,5,13,5,6,4,3,6,3,6];
-
-
 class PostController implements Controller {
     public path = '/api/post';
     public router = Router();
-    public dataService: DataService;
-    
+    private dataService: DataService;
 
     constructor() {
+        this.dataService = new DataService();
         this.initializeRoutes();
     }
 
@@ -58,28 +55,21 @@ class PostController implements Controller {
         response.sendStatus(200);
     }
 
-    // TO DO
     private getSome = async (request: Request, response: Response, next: NextFunction) => {
         const { num }: any = request.params;
 
-        const dispArr = testArr.slice(0, num);
-
-        response.status(200).json(dispArr);
+        const allData = await this.dataService.getSomeData(num);
+        response.status(200).json(allData);
     }
 
-    // TO DO
     private getAll = async (request: Request, response: Response, next: NextFunction) => {
-        response.status(200).json(testArr);
+        const allData = await this.dataService.query({});
+        response.status(200).json(allData);
     }
 
-    // TO DO
     private deleteAll = async (request: Request, response: Response, next: NextFunction) => {
-        testArr = [];
-        
-        response.status(200).json({
-            response:"Usunięto",
-            updatedArray:testArr
-        });
+        await this.dataService.deleteData({});
+        response.sendStatus(200);
     }
 }
 export default PostController;
