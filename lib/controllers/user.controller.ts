@@ -20,17 +20,27 @@ class UserController implements Controller {
         this.router.post(`${this.path}/create`, this.createNewOrUpdate);
         this.router.post(`${this.path}/auth`, this.authenticate);
         this.router.delete(`${this.path}/logout/:userId`, auth, this.removeHashSession);
-        this.router.patch(`${this.path}/change-password`, this.changePassword);
+        this.router.patch(`${this.path}/changepassword/:userId`, this.changePassword);
     }
 
     private changePassword = async (request: Request, response: Response, next: NextFunction) => {
         const {oldPassword, newPassword} = request.body;
+        const {userId} = request.params;
 
         try {
-            // TO DO
+            await this.passwordService.authorize(userId, await this.passwordService.hashPassword(oldPassword));
+
+            const hashedPassword = await this.passwordService.hashPassword(newPassword);
+            this.passwordService.createOrUpdate({
+                userId: userId,
+                password: hashedPassword
+            });
+
+            return response.status(200).json({response: 'Password changed successfully'});
+            
         } catch (error) {
             console.error(`Error: ${error.message}`);
-            return response.status(401).json({error: 'Unauthorized'});
+            return response.status(401).json({error: 'Error'});
         }
     }
 

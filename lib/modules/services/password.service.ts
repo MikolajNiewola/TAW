@@ -21,7 +21,6 @@ class PasswordService {
             console.error('Wystąpił błąd podczas tworzenia danych:', error);
             throw new Error('Wystąpił błąd podczas tworzenia danych');
         }
-
     }
 
     async hashPassword(password: string): Promise<string> {
