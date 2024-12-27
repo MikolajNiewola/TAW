@@ -1,1 +1,19 @@
-<p>comments-section works!</p>
+<div class="card-body mt-3">
+    <h5>Komentarze</h5>
+    <div *ngIf="comments.length === 0" class="text-muted">Brak komentarzy</div>
+    <ul class="list-group mb-3">
+        <li *ngFor="let item of comments" class="list-group-item">
+            <strong>{{ item.author }}:</strong><p> {{ item.text }}</p>
+        </li>
+    </ul>
+
+    <form (ngSubmit)="addComment()" class="needs-validation">
+        <div class="mb-3">
+            <input type="text" placeholder="Nazwa" [(ngModel)]="author" name="author" required class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <textarea placeholder="treść komentarza" rows="3" [(ngModel)]="text" name="text" required class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj komentarz</button>
+    </form>
+</div>

@@ -65,14 +65,18 @@ const posts = [
 
 
 @Injectable({
- providedIn: 'root'
+  providedIn: 'root'
 })
 export class DataService {
 
- constructor() {
- }
+  constructor() {
+  }
 
- public getAll() {
-   return posts;
- }
+  public getAll() {
+    return posts;
+  }
+
+  public addPost(post: {title: string; text: string; image: string; id: string;}) {
+    posts.push(post);
+  }
 }

@@ -1,0 +1,14 @@
+<div class="container mt-4">
+    <h3>Galeria zdjęć</h3>
+    <div class="gallery-grid">
+
+      <div class="gallery-item" *ngFor="let image of images" (click)="enlargeImage(image)">
+        <img [src]="image" alt="Obraz z posta" />
+      </div>
+      
+    </div>
+  
+    <div class="overlay" *ngIf="enlargedImage" (click)="closeImage()">
+      <img [src]="enlargedImage" alt="Powiększony obraz" class="enlarged-img" />
+    </div>
+  </div>
