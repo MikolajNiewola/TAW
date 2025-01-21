@@ -1,0 +1,19 @@
+<div class="container mt-4">
+    <h3>Galeria zdjęć</h3>
+    <div class="gallery-grid">
+
+      
+        @for (image of images; track image) {
+            <div class="gallery-item" (click)="enlargeImage(image)">
+                <img [src]="image" alt="img" />
+            </div>
+        }
+      
+    </div>
+  
+        @if (enlargedImage) {
+            <div class="overlay" (click)="closeImage()">
+                <img [src]="enlargedImage" alt="img" class="enlarged-img" />
+            </div>
+        }
+  </div>
