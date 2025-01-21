@@ -1,0 +1,6 @@
+export const config = {
+    port: process.env.PORT || 3100,
+    supportedPostCount: 15,
+    databaseUrl: process.env.MONGODB_URI || 'mongodb+srv://techweb:dNhO0lOvE79jys2h@cluster0.ooees.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    JwtSecret: 'f5efcedea4c3ce8f2afcbc5f4fecab176483a8a0c9b82a52a94a3ea0611fe9c39a8ee15c6d1b7d0b927d108652e0f9e2d4970b37bbfb4c9d3ffc018f80bf652427bbad62f6f9900cfa63444d960f03fba2aa19cc81a5ff9e7f751aa9095f16480a03a5fede3ee303995c055322d9a084c2bac4d86e778aa60ce7329661a155631bad847959bed9c360fc6ca45bd7738dcc28ccbda53c0b999bbd8ff9ab8249ddb39640cbdf5cfa69963ba982723ed9358eca6465deebd8815b082becb9e46438ad964ee6c99013a30fc8d265597b63e3ba11ba96e459207d3f3c34c0b85a29b1e78dd5850c8a1c0b8b3b86bd17e4ca5396ea71251dca52b756d0b7cb6071ad51'
+};
