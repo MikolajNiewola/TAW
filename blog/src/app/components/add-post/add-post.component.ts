@@ -22,14 +22,21 @@ export class AddPostComponent {
         title: this.title,
         text: this.text,
         image: this.image || 'https://www.pandasecurity.com/en/mediacenter/src/uploads/2013/11/pandasecurity-facebook-photo-privacy.jpg',
+      }).subscribe({
+        next: () => {
+          this.title = '';
+          this.text = '';
+          this.image = '';
+    
+          form.resetForm();
+          alert('Post został dodany!');
+        }, error: (e) => {
+          console.error(e);
+          alert('Wystąpił błąd podczas dodawania posta.')
+        }
       });
 
-      this.title = '';
-      this.text = '';
-      this.image = '';
-
-      form.resetForm();
-      alert('Post został dodany!');
+      
     } else {
       alert('Wypełnij wymagane pola!');
     }

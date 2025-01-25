@@ -25,14 +25,9 @@ export class DataService {
     return this.http.get<Post>(this.url + '/api/post/' + id);
   }
 
-  public addPost(post: { title: string; text: string; image: string }) {
-    const body = {
-      "title": post.title,
-      "text": post.text,
-      "image": post.image,
-    };
-  
-    return this.http.post(this.url + '/api/post', body);
+  addPost(post: { title: string; text: string; image: string }) {
+    console.log("error")
+    return this.http.post(this.url + '/api/post', post);
   }
 
 }
