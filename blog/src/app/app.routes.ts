@@ -1,31 +1,30 @@
 import { Routes } from '@angular/router';
-import { BlogItemDetailsComponent } from './components/blog-item-details/blog-item-details.component';
-import { BlogHomeComponent } from './components/blog-home/blog-home.component';
-import { HomeComponent } from './components/home/home.component';
 import { authGuard } from './services/auth.guard';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
+        loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
     },
     {
         path: 'blog',
-        component: BlogHomeComponent,
+        loadComponent: () => import('./components/blog-home/blog-home.component').then(m => m.BlogHomeComponent),
         canActivate: [authGuard]
     },
     {
         path: 'blog/detail/:id',
-        component: BlogItemDetailsComponent
+        loadComponent: () => import('./components/blog-item-details/blog-item-details.component').then(m => m.BlogItemDetailsComponent)
     },
     {
         path: 'login',
-        component: LoginComponent
+        loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent)
     },
     {
         path: 'signup',
-        component: SignupComponent
-    }
+        loadComponent: () => import('./components/signup/signup.component').then(m => m.SignupComponent)
+    },
+    {
+        path: 'addpost',
+        loadComponent: () => import('./components/add-post/add-post.component').then(m => m.AddPostComponent)
+    },
 ];

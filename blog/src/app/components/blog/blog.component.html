@@ -1,18 +1,15 @@
-<!-- @for (item of items$; track item) {
-    <app-blog-item [image]="item.image" [text]="item.text" [id]="item.id">
-    </app-blog-item>
-} -->
 <button (click)="refreshPosts()" class="btn btn-primary" style="display: block; margin: 5em auto; width: 20%;;">Odśwież posty</button>
+<button (click)="randomPost()" class="btn btn-primary" style="display: block; margin: 5em auto; width: 20%;;">Wylosuj post</button>
 
-<div *ngIf="(items$ | filter:filterText).length === 0" class="no-results-message">
-    <p>Brak wyników spełniających kryteria wyszukiwania.</p>
-</div>
+@if ((items$ | filter:filterText).length === 0 ) {
+    <div>
+        <p>Brak wyników spełniających kryteria wyszukiwania.</p>
+    </div>
+}
 
-<div *ngFor="let item of items$ | filter:filterText">
-    <app-blog-item [image]="item.image" [text]="item.text" [id]="item.id">
+@for (item of items$ | filter:filterText; track item) {
+    <app-blog-item [image]="item.image" [text]="item.text" [id]="item._id">
     </app-blog-item>
-</div>
-
-<app-add-post></app-add-post>
+}
 
 <app-gallery></app-gallery>

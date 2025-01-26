@@ -19,7 +19,7 @@ class UserController implements Controller {
     private initializeRoutes() {
         this.router.post(`${this.path}/create`, this.createNewOrUpdate);
         this.router.post(`${this.path}/auth`, this.authenticate);
-        this.router.delete(`${this.path}/logout/:userId`, auth, this.removeHashSession);
+        this.router.delete(`${this.path}/logout/:userId`, this.removeHashSession);
         this.router.patch(`${this.path}/changepassword/:userId`, this.changePassword);
     }
 

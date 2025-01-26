@@ -14,7 +14,7 @@ class DataService {
  
     public async query(query: Query<number | string | boolean>) {
         try {
-            const result = await dataSchema.find(query, { __v: 0, _id: 0 });
+            const result = await dataSchema.find(query, { __v: 0});
             return result;
        } catch (error) {
            throw new Error(`Query failed: ${error}`);
@@ -23,7 +23,7 @@ class DataService {
 
    public async getSomeData(num: number) {
     try {
-        const result = await dataSchema.find({}, { __v: 0, _id: 0 }, {limit: num});
+        const result = await dataSchema.find({}, { __v: 0}, {limit: num});
         return result;
    } catch (error) {
        throw new Error(`Query failed: ${error}`);

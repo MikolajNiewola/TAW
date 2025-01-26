@@ -2,10 +2,12 @@ import {Component, OnInit, Input} from '@angular/core';
 import {DataService} from "../../services/data.service";
 import {BlogItemComponent} from "../blog-item/blog-item.component";
 import {CommonModule} from "@angular/common";
+import { Router } from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
 import { FilterTextPipe } from '../../pipes/filter-text.pipe';
 import { AddPostComponent } from '../add-post/add-post.component';
 import { GalleryComponent } from '../gallery/gallery.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
  selector: 'app-blog',
@@ -21,8 +23,8 @@ export class BlogComponent implements OnInit {
 
   public items$: any;
 
-  constructor(private service: DataService) {
-  }
+  constructor(private service: DataService, public authService: AuthService, private router: Router) {}
+
   ngOnInit() {
     this.getAll();
   }
@@ -35,5 +37,19 @@ export class BlogComponent implements OnInit {
 
   refreshPosts() {
     this.getAll();
+  }
+
+  randomPost() {
+    this.service.getAll().subscribe(response => {
+      const ids = response.map((post: any) => post._id);
+      if (ids.length > 0) {
+        const randomId = ids[Math.floor(Math.random() * ids.length)];
+        this.router.navigate(['/blog/detail/', randomId]);
+      } else {
+        console.error('brak postów');
+      }
+    }, error => {
+      console.error("Błąd podczas pobierania: ", error);
+    });
   }
 }
